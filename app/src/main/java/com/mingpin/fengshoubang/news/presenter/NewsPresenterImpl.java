@@ -8,7 +8,6 @@ import com.mingpin.fengshoubang.news.model.OnLoadNewsListListener;
 import com.mingpin.fengshoubang.news.view.NewsView;
 
 import java.util.List;
-
 /**
  * Created by Administrator on 2017/3/21.
  */
