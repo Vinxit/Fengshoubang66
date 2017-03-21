@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">丰收邦</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="news_hot">动态</string>
+    <string name="news_product">产品</string>
+    <string name="news_at">农技</string>
+    <string name="news_video">视频</string>
+
+    <string name="load_fail">加载数据失败!</string>
+
+</resources>
