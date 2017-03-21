@@ -1,6 +1,5 @@
 package com.mingpin.fengshoubang.news.presenter;
 
-import com.mingpin.fengshoubang.news.NewsFragment;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.model.NewsModel;
 import com.mingpin.fengshoubang.news.model.NewsModelImpl;
