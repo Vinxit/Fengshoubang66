@@ -1,12 +1,13 @@
 package com.mingpin.fengshoubang.news;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.mingpin.fengshoubang.R;
 
 public class NewsDetailsActivity extends AppCompatActivity {
 
+    //修改了一些bug
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

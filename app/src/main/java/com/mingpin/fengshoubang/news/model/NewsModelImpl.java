@@ -5,4 +5,8 @@ package com.mingpin.fengshoubang.news.model;
  */
 
 public class NewsModelImpl implements NewsModel {
+    @Override
+    public void loadNews(String url, int type, OnLoadNewsListListener listener) {
+
+    }
 }
