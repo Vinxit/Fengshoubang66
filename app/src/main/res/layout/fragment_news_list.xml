@@ -1,20 +1,17 @@
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_refresh_widget"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/a_top"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    android:layout_height="match_parent">
+    <!--ViewPager 热门文章图片展示-->
+<!--        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_hottest"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/a_top" />-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:paddingTop="@dimen/card_margin"
         >

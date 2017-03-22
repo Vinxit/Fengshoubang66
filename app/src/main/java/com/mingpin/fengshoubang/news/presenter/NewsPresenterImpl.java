@@ -1,5 +1,7 @@
 package com.mingpin.fengshoubang.news.presenter;
 
+import com.mingpin.fengshoubang.commons.Urls;
+import com.mingpin.fengshoubang.news.NewsFragment;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.model.NewsModel;
 import com.mingpin.fengshoubang.news.model.NewsModelImpl;
@@ -22,11 +24,16 @@ public class NewsPresenterImpl implements NewsPresenter,OnLoadNewsListListener {
         this.mNewsModel = new NewsModelImpl();
     }
 
+    /**
+     * 加载新闻
+     * @param type
+     * @param pageIndex
+     */
     @Override
     public void loadNews(final int type, final int pageIndex) {
         String url = getUrl(type, pageIndex);
         //只有第一页的或者刷新的时候才显示刷新进度条
-        if(pageIndex == 0) {
+        if(pageIndex == 1) {
             mNewsView.showProgress();
         }
         mNewsModel.loadNews(url, type, this);
@@ -40,34 +47,45 @@ public class NewsPresenterImpl implements NewsPresenter,OnLoadNewsListListener {
      */
     private String getUrl(int type, int pageIndex) {
         StringBuffer sb = new StringBuffer();
-/*        switch (type) {
+        switch (type) {
             case NewsFragment.NEWS_TYPE_HOT:
-                sb.append(Urls.TOP_URL).append(Urls.TOP_ID);
+                sb.append(Urls.NEWS_HOT_URL);
                 break;
             case NewsFragment.NEWS_TYPE_PRODUCT:
-                sb.append(Urls.COMMON_URL).append(Urls.NBA_ID);
+                sb.append(Urls.NEWS_PRODUCT_URL);
                 break;
             case NewsFragment.NEWS_TYPE_AT:
-                sb.append(Urls.COMMON_URL).append(Urls.CAR_ID);
+                sb.append(Urls.NEWS_AT_URL);
                 break;
             case NewsFragment.NEWS_TYPE_VIDEO:
-                sb.append(Urls.COMMON_URL).append(Urls.JOKE_ID);
+                sb.append(Urls.NEWS_VIDEO_URL);
                 break;
             default:
-                sb.append(Urls.TOP_URL).append(Urls.TOP_ID);
+                sb.append(Urls.NEWS_HOT_URL);
                 break;
-        }*/
-/*        sb.append("/").append(pageIndex).append(Urls.END_URL);*/
+        }
+        sb.append(pageIndex);
         return sb.toString();
     }
 
+    /**
+     * 请求成功的回调
+     * @param list
+     */
     @Override
     public void onSuccess(List<NewsListItem> list) {
-
+        mNewsView.hideProgress();
+        mNewsView.addNews(list);
     }
 
+    /**
+     * 请求失败的回调
+     * @param msg
+     * @param e
+     */
     @Override
     public void onFailure(String msg, Exception e) {
-
+        mNewsView.hideProgress();
+        mNewsView.showLoadFailMsg();
     }
 }

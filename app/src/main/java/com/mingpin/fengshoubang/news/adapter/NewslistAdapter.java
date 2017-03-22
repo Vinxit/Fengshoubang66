@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,7 +60,7 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
-            ((ItemViewHolder) holder).mDesc.setText(news.getHits());
+/*            ((ItemViewHolder) holder).mDesc.setText(news.getHits());*/
 //            Uri uri = Uri.parse(news.getImgsrc());
 //            ((ItemViewHolder) holder).mNewsImg.setImageURI(uri);
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImg());
@@ -100,13 +99,11 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTitle;
-        public TextView mDesc;
         public ImageView mNewsImg;
 
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
-            mDesc = (TextView) v.findViewById(R.id.tvDesc);
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
         }
