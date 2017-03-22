@@ -8,6 +8,7 @@ import com.mingpin.fengshoubang.R;
 public class NewsDetailsActivity extends AppCompatActivity {
 
     //修改了一些bug问题
+    //啊啊啊啊 啊啊
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
