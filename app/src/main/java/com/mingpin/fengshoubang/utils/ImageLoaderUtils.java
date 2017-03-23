@@ -10,7 +10,6 @@ import com.mingpin.fengshoubang.R;
  * Description:图片加载工具类
  * Created by Administrator on 2017/3/21.
  */
-
 public class ImageLoaderUtils {
     public static void display(Context context, ImageView imageView, String url, int placeholder, int error) {
         if(imageView == null) {

@@ -5,15 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGHT = 2000; // 延迟2秒
@@ -40,13 +36,32 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
     private void getAsynHttp() {
-        mOkHttpClient=new OkHttpClient();
+   /*     mOkHttpClient=new OkHttpClient();
         Request.Builder requestBuilder = new Request.Builder().url("http://www.fengshoubang.cn/api/appapi5.php?a=getNewsList&classid=1&page=1");
         //可以省略，默认是GET请求
         requestBuilder.method("GET",null);
         Request request = requestBuilder.build();
         Call mcall= mOkHttpClient.newCall(request);
-        mcall.enqueue(new Callback() {
+        Response response = mcall.execute();*/
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = "http://www.fengshoubang.cn/api/appapi5.php?a=getNewsList&classid=1&page=1";
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url(url).build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        Log.i("123", response.body().string());
+                    } else {
+                        Log.i("456", "okHttp is request error");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+ /*       mcall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -69,6 +84,6 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
     }
 }

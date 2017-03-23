@@ -39,7 +39,7 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_news, parent, false);
+                    .inflate(R.layout.item_news, null);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {

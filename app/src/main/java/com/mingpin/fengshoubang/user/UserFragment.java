@@ -39,7 +39,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView tv = (TextView) getActivity().findViewById(R.id.tv);
+        TextView tv = (TextView) getActivity().findViewById(R.id.tv_user);
         tv.setText(getArguments().getString("ARGS"));
     }
 }

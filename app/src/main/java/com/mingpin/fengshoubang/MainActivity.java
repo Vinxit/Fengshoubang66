@@ -1,10 +1,8 @@
 package com.mingpin.fengshoubang;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -65,32 +63,10 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onTabSelected(int position) {  //未选中 到 选中
                 System.out.println(position);
-                if (fragments != null) {
-                    if (position < fragments.size()) {
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        Fragment fragment = fragments.get(position);
-                        if (fragment.isAdded()) {
-                            ft.replace(R.id.layFrame, fragment);
-                        } else {
-                            ft.add(R.id.layFrame, fragment);
-                        }
-                        ft.commitAllowingStateLoss();
-                    }
-                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.layFrame,fragments.get(position)).commit();
             }
             @Override
             public void onTabUnselected(int position) {  //选中 到 未选中
-                if (fragments != null) {
-                    if (position < fragments.size()) {
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        Fragment fragment = fragments.get(position);
-                        System.out.println(fragment);
-                        ft.remove(fragment);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
             }
             @Override
             public void onTabReselected(int position) {  // 选中 到 再次选中
