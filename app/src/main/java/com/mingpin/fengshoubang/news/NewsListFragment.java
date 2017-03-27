@@ -123,7 +123,6 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void showProgress() {
 
     }
-
     @Override
     public void addNews(List<NewsListItem> newsList) {
         mAdapter.isShowFooter(true);
