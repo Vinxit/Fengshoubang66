@@ -1,27 +1,32 @@
 package com.mingpin.fengshoubang.news;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mingpin.fengshoubang.R;
+import com.mingpin.fengshoubang.commons.Urls;
 import com.mingpin.fengshoubang.news.adapter.NewslistAdapter;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
+import com.mingpin.fengshoubang.news.presenter.NewsPresenter;
+import com.mingpin.fengshoubang.news.presenter.NewsPresenterImpl;
+import com.mingpin.fengshoubang.news.view.NewsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener ,NewsView{
 
+    private static final String TAG = "NewsListFragment";
     private static final String TYPE = "type";
     private int mType = NewsFragment.NEWS_TYPE_HOT;
 
@@ -30,6 +35,9 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private NewslistAdapter mAdapter;
     private List<NewsListItem> mData;
     private LinearLayoutManager mLayoutManager;
+    private NewsPresenter mNewsPresenter;
+    private int pageIndex = 0;
+
     public NewsListFragment() {
         // Required empty public constructor
     }
@@ -46,6 +54,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNewsPresenter = new NewsPresenterImpl(this);
         if (getArguments() != null) {
             mType = getArguments().getInt(TYPE);
         }
@@ -92,8 +101,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.isShowFooter()) {
                 //加载更多
-/*                LogUtils.d(TAG, "loading more data");
-                mNewsPresenter.loadNews(mType, pageIndex + Urls.PAZE_SIZE);*/
+                mNewsPresenter.loadNews(mType, pageIndex + Urls.PAGE_SIZE);
             }
         }
     };
@@ -110,6 +118,42 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         }
     };
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addNews(List<NewsListItem> newsList) {
+        mAdapter.isShowFooter(true);
+        if(mData == null) {
+            mData = new ArrayList<NewsListItem>();
+            Log.i(TAG,"DATA:"+mData);
+        }
+        Log.i(TAG,"DATA:"+mData);
+        mData.addAll(newsList);
+        if(pageIndex == 0) {
+            mAdapter.setmDate(mData);
+        } else {
+            //如果没有更多数据了,则隐藏footer布局
+            if(newsList == null || newsList.size() == 0) {
+                mAdapter.isShowFooter(false);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+        pageIndex += Urls.PAGE_SIZE;
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showLoadFailMsg() {
+
+    }
 
     @Override
     public void onRefresh() {

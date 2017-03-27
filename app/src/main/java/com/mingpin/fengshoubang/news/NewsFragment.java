@@ -1,7 +1,6 @@
 package com.mingpin.fengshoubang.news;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,12 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
 
@@ -64,8 +60,6 @@ public class NewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView tv = (TextView) getActivity().findViewById(R.id.tv);
-        tv.setText(getArguments().getString("ARGS"));
     }
     private void setupViewPager(ViewPager mViewPager) {
         //Fragment中嵌套使用Fragment一定要使用getChildFragmentManager(),否则会有问题

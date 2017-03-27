@@ -33,10 +33,10 @@ public class NewsPresenterImpl implements NewsPresenter,OnLoadNewsListListener {
     public void loadNews(final int type, final int pageIndex) {
         String url = getUrl(type, pageIndex);
         //只有第一页的或者刷新的时候才显示刷新进度条
-        if(pageIndex == 1) {
+        if(pageIndex == 0) {
             mNewsView.showProgress();
         }
-        mNewsModel.loadNews(url, type, this);
+        mNewsModel.loadNews(url, this);
     }
 
     /**

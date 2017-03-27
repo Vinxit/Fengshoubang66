@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 
@@ -18,7 +19,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        //设置当前界面全屏，隐藏手机状态栏
+        View decorView = getWindow().getDecorView();
+        int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(option);
 
         //设置启动页
         new Handler().postDelayed(new Runnable() {
@@ -52,6 +56,7 @@ public class SplashActivity extends AppCompatActivity {
                     Request request = new Request.Builder().url(url).build();
                     okhttp3.Response response = client.newCall(request).execute();
                     if (response.isSuccessful()) {
+
                         Log.i("123", response.body().string());
                     } else {
                         Log.i("456", "okHttp is request error");

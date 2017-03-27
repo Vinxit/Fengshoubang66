@@ -6,6 +6,11 @@ package com.mingpin.fengshoubang.commons;
  */
 
 public class Urls {
+    //页面数据条数
+    public static final int PAGE_SIZE = 5;
+    //服务器返回Json数据标志 result
+    public static final String  RESULT= "result";
+
     public static final String API = "http://www.fengshoubang.cn/api/appapi5.php";
     public static final String APP = "http://www.fengshoubang.cn/api/app5.php";
     public static final String IMG_URL= "http://www.fengshoubang.cn";

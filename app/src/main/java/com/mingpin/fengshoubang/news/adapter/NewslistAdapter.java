@@ -2,6 +2,7 @@ package com.mingpin.fengshoubang.news.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
-import com.mingpin.fengshoubang.utils.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = "NewslistAdapter";
 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
@@ -30,7 +31,10 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public NewslistAdapter(Context context) {
         this.mContext = context;
     }
-
+    public void setmDate(List<NewsListItem> data) {
+        Log.i(TAG, "onBindViewHolder66: "+data);
+        this.mData = data;
+    }
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
     }
@@ -39,7 +43,7 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_news, null);
+                    .inflate(R.layout.item_news,parent,false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -53,18 +57,18 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder) {
 
+        ((ItemViewHolder) holder).mTitle.setText("我是标题");
+        Log.i(TAG, "onBindViewHolder: "+mData);
+/*        if(holder instanceof ItemViewHolder) {
+            Log.i(TAG, "onBindViewHolder: "+position);
             NewsListItem news = mData.get(position);
             if(news == null) {
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
-/*            ((ItemViewHolder) holder).mDesc.setText(news.getHits());*/
-//            Uri uri = Uri.parse(news.getImgsrc());
-//            ((ItemViewHolder) holder).mNewsImg.setImageURI(uri);
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImg());
-        }
+        }*/
     }
 
     @Override
@@ -104,7 +108,7 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
-            mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
+/*            mNewsImg = (ImageView) v.findViewById(R.id.ivNews);*/
             v.setOnClickListener(this);
         }
 
