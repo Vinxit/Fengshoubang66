@@ -2,12 +2,13 @@ package com.mingpin.fengshoubang.news;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,10 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsPresenter = new NewsPresenterImpl(this);
-        if (getArguments() != null) {
-            mType = getArguments().getInt(TYPE);
-        }
+        mType = getArguments().getInt(TYPE);
     }
 
     @Override
@@ -79,6 +78,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
         mAdapter = new NewslistAdapter(getActivity().getApplicationContext());
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
+
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         onRefresh();
         return view;
@@ -128,9 +128,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
         mAdapter.isShowFooter(true);
         if(mData == null) {
             mData = new ArrayList<NewsListItem>();
-            Log.i(TAG,"DATA:"+mData);
         }
-        Log.i(TAG,"DATA:"+mData);
         mData.addAll(newsList);
         if(pageIndex == 0) {
             mAdapter.setmDate(mData);
@@ -146,17 +144,26 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void hideProgress() {
-
+        mSwipeRefreshWidget.setRefreshing(false);
     }
 
     @Override
     public void showLoadFailMsg() {
-
+        if(pageIndex == 0) {
+            mAdapter.isShowFooter(false);
+            mAdapter.notifyDataSetChanged();
+        }
+        View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.activity_main);
+        Snackbar.make(view, getString(R.string.load_fail), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRefresh() {
-
+        pageIndex = 0;
+        if(mData != null) {
+            mData.clear();
+        }
+        mNewsPresenter.loadNews(mType, pageIndex);
     }
 
 }

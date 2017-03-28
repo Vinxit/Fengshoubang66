@@ -2,7 +2,6 @@ package com.mingpin.fengshoubang.news.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
+import com.mingpin.fengshoubang.utils.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -26,17 +26,31 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean mShowFooter = true;
     private Context mContext;
     private List<NewsListItem> mData;
+
     private OnItemClickListener mOnItemClickListener;
 
     public NewslistAdapter(Context context) {
         this.mContext = context;
     }
     public void setmDate(List<NewsListItem> data) {
-        Log.i(TAG, "onBindViewHolder66: "+data);
         this.mData = data;
+        this.notifyDataSetChanged();
     }
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // 最后一个item设置为footerView
+        if(!mShowFooter) {
+            return TYPE_ITEM;
+        }
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     @Override
@@ -57,18 +71,14 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        ((ItemViewHolder) holder).mTitle.setText("我是标题");
-        Log.i(TAG, "onBindViewHolder: "+mData);
-/*        if(holder instanceof ItemViewHolder) {
-            Log.i(TAG, "onBindViewHolder: "+position);
+        if(holder instanceof ItemViewHolder) {
             NewsListItem news = mData.get(position);
             if(news == null) {
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImg());
-        }*/
+        }
     }
 
     @Override
@@ -100,6 +110,7 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTitle;
@@ -108,14 +119,14 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
-/*            mNewsImg = (ImageView) v.findViewById(R.id.ivNews);*/
+            mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if(mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(view, this.getPosition());
+                mOnItemClickListener.onItemClick(view,this.getPosition());
             }
         }
     }

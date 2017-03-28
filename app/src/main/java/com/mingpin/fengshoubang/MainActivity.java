@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity{
                 .addItem(new BottomNavigationItem(R.drawable.community_2,"社区"))
                 .addItem(new BottomNavigationItem(R.drawable.box_2,"发现"))
                 .addItem(new BottomNavigationItem(R.drawable.user_2,"我的"))
-                .setFirstSelectedPosition(0) //设置默认的tab
+                .setFirstSelectedPosition(1) //设置默认的tab
                 .initialise();
         fragments = getFragments();
         //设置默认的Fargment
-        getSupportFragmentManager().beginTransaction().replace(R.id.layFrame,ProductFragment.newInstance("产品汇")).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layFrame,NewsFragment.newInstance("资讯")).commit();
         //底部导航栏设置切换监听
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
             @Override

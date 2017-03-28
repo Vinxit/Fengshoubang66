@@ -1,5 +1,7 @@
 package com.mingpin.fengshoubang.news.model;
 
+import android.util.Log;
+
 import com.mingpin.fengshoubang.news.NewsJsonUtils;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.utils.OkHttpUtils;
@@ -12,6 +14,7 @@ import java.util.List;
  */
 
 public class NewsModelImpl implements NewsModel {
+    private static final String TAG = "NewsModelImpl";
     /**
      * 加载新闻列表
      * @param url
@@ -23,6 +26,7 @@ public class NewsModelImpl implements NewsModel {
             @Override
             public void onSuccess(String response) {
                 List<NewsListItem> newsListItems = NewsJsonUtils.readJsonNewsBeans(response);
+                Log.i(TAG, "onSuccess: "+newsListItems);
                 listener.onSuccess(newsListItems);
             }
 
