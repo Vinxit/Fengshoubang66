@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.news;
+package com.mingpin.fengshoubang.news.widget;
 
 
 import android.os.Bundle;

@@ -4,7 +4,7 @@ package com.mingpin.fengshoubang.news.bean;
  * Created by Administrator on 2017/3/20.
  */
 
-public class News {
+public class NewsDetail {
     private String classid;     //新闻类别
     private String newstitle;   //新闻标题
     private String nickname;    //作者
@@ -13,7 +13,7 @@ public class News {
     private String isZambia;    //是否点赞
     private String iscollect;   //是否收藏
     private String hits;        //浏览量
-    private String source;      //
+    private String source;      //来源
     private String img;         //图片
     private String newscontent; //新闻内容
 

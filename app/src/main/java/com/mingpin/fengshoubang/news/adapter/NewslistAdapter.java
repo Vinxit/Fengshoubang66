@@ -2,6 +2,7 @@ package com.mingpin.fengshoubang.news.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
+import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.utils.ImageLoaderUtils;
 
@@ -77,7 +79,10 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
-            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImg());
+            ((ItemViewHolder) holder).mHits.setText(news.getHits());
+            ((ItemViewHolder) holder).mC_num.setText(news.getC_num()+"");
+            Log.i(TAG,"img"+news.getImg());
+            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, Urls.IMG_URL+news.getImg());
         }
     }
 
@@ -114,11 +119,15 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTitle;
+        public TextView mHits;
+        public TextView mC_num;
         public ImageView mNewsImg;
 
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
+            mHits = (TextView) v.findViewById(R.id.tvHits);
+            mC_num = (TextView) v.findViewById(R.id.tvC_num);
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
         }

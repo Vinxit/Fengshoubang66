@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".news.NewsDetailsActivity"></activity>
+        <activity android:name=".news.widget.NewsDetailsActivity"></activity>
     </application>
 
 </manifest>

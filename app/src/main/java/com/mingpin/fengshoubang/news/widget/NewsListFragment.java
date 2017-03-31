@@ -1,8 +1,7 @@
-package com.mingpin.fengshoubang.news;
+package com.mingpin.fengshoubang.news.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mingpin.fengshoubang.R;
-import com.mingpin.fengshoubang.commons.Urls;
+import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.adapter.NewslistAdapter;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.presenter.NewsPresenter;
@@ -53,7 +52,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsPresenter = new NewsPresenterImpl(this);
         mType = getArguments().getInt(TYPE);
@@ -114,8 +113,8 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
             NewsListItem newsListItem = mAdapter.getItem(position);
             Intent intent = new Intent(getActivity(),NewsDetailsActivity.class);
-            intent.putExtra("news",newsListItem);
-
+            intent.putExtra("newsId",newsListItem.getId());
+            startActivity(intent);
         }
     };
 

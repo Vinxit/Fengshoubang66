@@ -10,7 +10,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.mingpin.fengshoubang.box.BoxFragment;
 import com.mingpin.fengshoubang.community.CommunityFragment;
-import com.mingpin.fengshoubang.news.NewsFragment;
+import com.mingpin.fengshoubang.news.widget.NewsFragment;
 import com.mingpin.fengshoubang.product.ProductFragment;
 import com.mingpin.fengshoubang.user.UserFragment;
 

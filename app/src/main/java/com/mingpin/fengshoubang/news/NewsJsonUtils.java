@@ -6,7 +6,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mingpin.fengshoubang.commons.Urls;
+import com.mingpin.fengshoubang.config.Urls;
+import com.mingpin.fengshoubang.news.bean.NewsDetail;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.utils.JsonUtils;
 
@@ -24,7 +25,6 @@ public class NewsJsonUtils {
     /**
      * 将获取到的json转换为新闻列表对象
      * @param res
-     * @param value
      * @return
      */
     public static List<NewsListItem> readJsonNewsBeans(String res) {
@@ -59,19 +59,20 @@ public class NewsJsonUtils {
         return beans;
     }
 
-/*    public static NewsDetailBean readJsonNewsDetailBeans(String res, String docId) {
-        NewsDetailBean newsDetailBean = null;
+    public static NewsDetail readJsonNewsDetailBeans(String res) {
+        NewsDetail newsDetail = null;
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
-            JsonElement jsonElement = jsonObj.get(docId);
+            JsonElement jsonElement = jsonObj.get(Urls.RESULT);
+            JsonArray jsonArray = jsonElement.getAsJsonArray();
+            JsonObject jo = jsonArray.get(0).getAsJsonObject();
             if(jsonElement == null) {
                 return null;
             }
-            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetailBean.class);
+            newsDetail = JsonUtils.deserialize(jo, NewsDetail.class);
         } catch (Exception e) {
-            LogUtils.e(TAG, "readJsonNewsBeans error" , e);
         }
-        return newsDetailBean;
-    }*/
+        return newsDetail;
+    }
 }

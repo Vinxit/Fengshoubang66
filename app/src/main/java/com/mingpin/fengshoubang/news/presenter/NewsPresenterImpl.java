@@ -1,12 +1,12 @@
 package com.mingpin.fengshoubang.news.presenter;
 
-import com.mingpin.fengshoubang.commons.Urls;
-import com.mingpin.fengshoubang.news.NewsFragment;
+import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.model.NewsModel;
 import com.mingpin.fengshoubang.news.model.NewsModelImpl;
 import com.mingpin.fengshoubang.news.model.OnLoadNewsListListener;
 import com.mingpin.fengshoubang.news.view.NewsView;
+import com.mingpin.fengshoubang.news.widget.NewsFragment;
 
 import java.util.List;
 /**

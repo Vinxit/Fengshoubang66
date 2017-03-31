@@ -53,4 +53,12 @@ public class NewsListItem implements Serializable{
     public void setHits(String hits) {
         this.hits = hits;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

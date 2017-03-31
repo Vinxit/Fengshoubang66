@@ -2,7 +2,9 @@ package com.mingpin.fengshoubang.news.model;
 
 import android.util.Log;
 
+import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.NewsJsonUtils;
+import com.mingpin.fengshoubang.news.bean.NewsDetail;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.utils.OkHttpUtils;
 
@@ -36,5 +38,33 @@ public class NewsModelImpl implements NewsModel {
             }
         };
         OkHttpUtils.get(url, loadNewsCallback);
+    }
+
+    /**
+     * 加载新闻详情
+     */
+    @Override
+    public void loadNewsDetail(final String id, final OnloadNewsDetailListener listener) {
+        String url = getDetailUrl(id);
+        OkHttpUtils.ResultCallback<String> loadNewsCallback = new OkHttpUtils.ResultCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                NewsDetail newsDetail = NewsJsonUtils.readJsonNewsDetailBeans(response);
+                Log.i(TAG, "onSuccess: "+newsDetail);
+                listener.onSuccess(newsDetail);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                listener.onFailure("load news detail info failure.", e);
+            }
+        };
+        OkHttpUtils.get(url, loadNewsCallback);
+    }
+
+    private String getDetailUrl(String id) {
+        StringBuffer sb = new StringBuffer(Urls.NEWS_DETAIL);
+        sb.append(id);
+        return sb.toString();
     }
 }
