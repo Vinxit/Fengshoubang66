@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    //发送按钮的三种状态
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#45b36b"></solid>
+            <corners android:radius="2dp"></corners>
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="#eeeeee"></solid>
+            <corners android:radius="2dp"></corners>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/main_green"></solid>
+            <corners android:radius="2dp"></corners>
+        </shape>
+    </item>
+</selector>
