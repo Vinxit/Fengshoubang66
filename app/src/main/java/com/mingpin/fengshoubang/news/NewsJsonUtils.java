@@ -6,10 +6,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mingpin.fengshoubang.common.utils.JsonUtils;
 import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.bean.NewsDetail;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
-import com.mingpin.fengshoubang.utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;

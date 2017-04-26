@@ -8,5 +8,27 @@
     <string name="news_video">视频</string>
 
     <string name="load_fail">加载数据失败!</string>
+    <string name="image_save">保存</string>
+    <string name="title_activity_login">Sign in</string>
 
+    <!-- Strings related to login -->
+    <string name="prompt_email">手机号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录/注册</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_invalid_email">邮箱无效</string>
+    <string name="error_invalid_password">密码太短</string>
+    <string name="error_incorrect_password">密码错误</string>
+    <string name="error_field_required">手机号为空</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- 评论-->
+    <string name="comment_hint">请输入评论</string>
+    <string name="hot_comment_hint">热门评论</string>
+    <string name="pub_comment_hint">发表评论</string>
+    <string name="pub_comment_success">评论成功</string>
+    <string name="pub_comment_failed">评论失败</string>
+    <string name="add_comment_hint">添加评论</string>
 </resources>

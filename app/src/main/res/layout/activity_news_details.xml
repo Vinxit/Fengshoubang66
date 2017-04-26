@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_news_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.mingpin.fengshoubang.news.widget.NewsDetailsActivity">
-<TextView
-    android:id="@+id/tv_title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"/>
-<!--    <WebView
+
+    <com.mingpin.fengshoubang.news.widget.MyWebView
         android:id="@+id/wv_News"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    </com.mingpin.fengshoubang.news.widget.MyWebView>
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    </WebView>-->
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/lay_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"/>
+    </LinearLayout>
+</LinearLayout>

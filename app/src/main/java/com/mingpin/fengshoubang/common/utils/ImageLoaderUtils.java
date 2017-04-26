@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.utils;
+package com.mingpin.fengshoubang.common.utils;
 
 import android.content.Context;
 import android.widget.ImageView;

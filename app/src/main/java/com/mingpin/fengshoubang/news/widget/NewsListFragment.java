@@ -1,6 +1,5 @@
 package com.mingpin.fengshoubang.news.widget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -112,9 +111,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 return;
             }
             NewsListItem newsListItem = mAdapter.getItem(position);
-            Intent intent = new Intent(getActivity(),NewsDetailsActivity.class);
-            intent.putExtra("newsId",newsListItem.getId());
-            startActivity(intent);
+            NewsDetailsActivity.show(getContext(),newsListItem.getId());
         }
     };
 

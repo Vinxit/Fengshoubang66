@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
+import com.mingpin.fengshoubang.common.utils.ImageLoaderUtils;
 import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
-import com.mingpin.fengshoubang.utils.ImageLoaderUtils;
 
 import java.util.List;
 

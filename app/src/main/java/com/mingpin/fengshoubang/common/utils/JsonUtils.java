@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.utils;
+package com.mingpin.fengshoubang.common.utils;
 
 
 import com.google.gson.Gson;

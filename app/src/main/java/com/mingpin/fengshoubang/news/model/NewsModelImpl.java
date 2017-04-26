@@ -2,11 +2,11 @@ package com.mingpin.fengshoubang.news.model;
 
 import android.util.Log;
 
+import com.mingpin.fengshoubang.common.utils.OkHttpUtils;
 import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.NewsJsonUtils;
 import com.mingpin.fengshoubang.news.bean.NewsDetail;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
-import com.mingpin.fengshoubang.utils.OkHttpUtils;
 
 import java.util.List;
 

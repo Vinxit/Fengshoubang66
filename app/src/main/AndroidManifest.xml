@@ -5,12 +5,17 @@
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppMainTheme">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".news.widget.NewsDetailsActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".news.widget.NewsDetailsActivity"
+            android:label="资讯详情"
+            android:theme="@style/AppDetailTheme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".widget.ImageGalleryActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>
