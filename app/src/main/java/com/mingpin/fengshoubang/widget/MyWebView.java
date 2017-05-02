@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.news.widget;
+package com.mingpin.fengshoubang.widget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.mingpin.fengshoubang.news.model.OnWebViewImageListener;
-import com.mingpin.fengshoubang.widget.ImageGalleryActivity;
 
 
 
