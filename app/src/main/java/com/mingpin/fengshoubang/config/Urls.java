@@ -11,8 +11,8 @@ public class Urls {
     //服务器返回Json数据标志 result
     public static final String  RESULT= "result";
 
-    public static final String API = "http://www.fengshoubang.cn/api/appapi5.php";
-    public static final String APP = "http://www.fengshoubang.cn/api/app5.php";
+    public static final String API = "http://www.fengshoubang.cn/api/appapi7.php";
+    public static final String APP = "http://www.fengshoubang.cn/api/app7.php";
     public static final String IMG_URL= "http://www.fengshoubang.cn";
 
     /**资讯版块Url getNewsList

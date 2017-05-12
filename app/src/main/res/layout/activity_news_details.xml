@@ -5,7 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.mingpin.fengshoubang.news.widget.NewsDetailsActivity">
-
+    <com.mingpin.fengshoubang.widget.MyWebView
+        android:id="@+id/wv_News"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.mingpin.fengshoubang.widget.MyWebView>
     <LinearLayout
         android:id="@+id/ll_comment"
         android:layout_width="match_parent"

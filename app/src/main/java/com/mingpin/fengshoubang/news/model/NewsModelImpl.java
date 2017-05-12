@@ -28,7 +28,7 @@ public class NewsModelImpl implements NewsModel {
             @Override
             public void onSuccess(String response) {
                 List<NewsListItem> newsListItems = NewsJsonUtils.readJsonNewsBeans(response);
-                Log.i(TAG, "onSuccess: "+newsListItems);
+                Log.i(TAG, "onSuccess: "+newsListItems.get(0));
                 listener.onSuccess(newsListItems);
             }
 
