@@ -1,6 +1,9 @@
 package com.mingpin.fengshoubang.base.activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+
+import com.mingpin.fengshoubang.R;
 
 /**
  * 带回退按钮
@@ -13,17 +16,16 @@ public abstract class BackActivity extends BaseActivity {
     @Override
     protected void initWindow() {
         super.initWindow();
-/*        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null){
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             if(actionBar != null){
                 // 给左上角图标的左边加上一个返回的图标 。对应ActionBar.DISPLAY_HOME_AS_UP
                 actionBar.setDisplayHomeAsUpEnabled(true);
-
                 actionBar.setHomeButtonEnabled(false);
             }
-        }*/
+        }
     }
 
     @Override

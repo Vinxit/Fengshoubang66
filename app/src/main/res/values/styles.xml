@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppDetailTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>

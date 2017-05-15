@@ -3,6 +3,7 @@ package com.mingpin.fengshoubang;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity{
 
     private ArrayList<Fragment> fragments;
+    private Toolbar toolbar;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_main;
@@ -34,6 +37,11 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null){
+            setSupportActionBar(toolbar);
+        }
+
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         //Mode有三种模式  MODE_FIXED模式 未选中的Item会显示文字 没有换挡动画
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
