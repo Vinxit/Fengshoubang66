@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">丰收邦</string>
 
+    <string name="main_tab_name_product">首页</string>
+    <string name="main_tab_name_news">资讯</string>
+    <string name="main_tab_name_community">社区</string>
+    <string name="main_tab_name_discover">发现</string>
+    <string name="main_tab_name_user">我的</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="news_hot">动态</string>
     <string name="news_product">产品</string>

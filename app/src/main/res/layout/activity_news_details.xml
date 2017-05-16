@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mingpin.fengshoubang.news.widget.NewsDetailsActivity">
+    tools:context="com.mingpin.fengshoubang.news.NewsDetailsActivity">
     <com.mingpin.fengshoubang.widget.MyWebView
         android:id="@+id/wv_News"
         android:layout_width="match_parent"

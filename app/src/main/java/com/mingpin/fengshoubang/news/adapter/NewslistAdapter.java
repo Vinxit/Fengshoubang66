@@ -2,7 +2,6 @@ package com.mingpin.fengshoubang.news.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +80,6 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
             ((ItemViewHolder) holder).mHits.setText(news.getHits());
             ((ItemViewHolder) holder).mC_num.setText(news.getC_num()+"");
-            Log.i(TAG,"img"+news.getImg());
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, Urls.IMG_URL+news.getImg());
         }
     }

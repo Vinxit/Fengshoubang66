@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.news.widget;
+package com.mingpin.fengshoubang.news.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.mingpin.fengshoubang.R;
 import com.mingpin.fengshoubang.config.Urls;
+import com.mingpin.fengshoubang.news.NewsDetailsActivity;
 import com.mingpin.fengshoubang.news.adapter.NewslistAdapter;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.presenter.NewsPresenter;
@@ -27,7 +28,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private static final String TAG = "NewsListFragment";
     private static final String TYPE = "type";
-    private int mType = NewsFragment.NEWS_TYPE_HOT;
+    private int mType = NewsViewPagerFragment.NEWS_TYPE_HOT;
 
     private SwipeRefreshLayout mSwipeRefreshWidget;
     private RecyclerView mRecyclerView;

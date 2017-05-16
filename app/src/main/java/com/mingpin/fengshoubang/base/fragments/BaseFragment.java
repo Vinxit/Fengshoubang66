@@ -13,10 +13,10 @@ import java.io.Serializable;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/5/3.
+ * Created by Vinxit_HK on 2017/5/3.
  */
 
-public abstract class BaseFragments extends Fragment{
+public abstract class BaseFragment extends Fragment{
     protected Context context;
     protected View mRoot;
     protected Bundle bundle;

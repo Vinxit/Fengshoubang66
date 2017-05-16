@@ -1,10 +1,10 @@
-package com.mingpin.fengshoubang.news.widget;
+package com.mingpin.fengshoubang.news.fragments;
 
 import android.util.Log;
 import android.view.View;
 
 import com.mingpin.fengshoubang.R;
-import com.mingpin.fengshoubang.base.fragments.BaseFragments;
+import com.mingpin.fengshoubang.base.fragments.BaseFragment;
 import com.mingpin.fengshoubang.news.bean.NewsDetail;
 import com.mingpin.fengshoubang.news.view.NewsDetailView;
 import com.mingpin.fengshoubang.widget.MyWebView;
@@ -13,7 +13,7 @@ import com.mingpin.fengshoubang.widget.MyWebView;
  * Created by Administrator on 2017/5/3.
  */
 
-public class NewsDetailsFragment extends BaseFragments implements NewsDetailView {
+public class NewsDetailsFragment extends BaseFragment implements NewsDetailView {
 /*    @BindView(R.id.wv_News)MyWebView myWebView;*/
     private static final String TAG = "NewsDetailsFragment";
     private MyWebView myWebView;

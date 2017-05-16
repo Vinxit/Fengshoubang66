@@ -2,11 +2,11 @@ package com.mingpin.fengshoubang.news.presenter;
 
 import com.mingpin.fengshoubang.config.Urls;
 import com.mingpin.fengshoubang.news.bean.NewsListItem;
+import com.mingpin.fengshoubang.news.fragments.NewsViewPagerFragment;
 import com.mingpin.fengshoubang.news.model.NewsModel;
 import com.mingpin.fengshoubang.news.model.NewsModelImpl;
 import com.mingpin.fengshoubang.news.model.OnLoadNewsListListener;
 import com.mingpin.fengshoubang.news.view.NewsView;
-import com.mingpin.fengshoubang.news.widget.NewsFragment;
 
 import java.util.List;
 /**
@@ -48,16 +48,16 @@ public class NewsPresenterImpl implements NewsPresenter,OnLoadNewsListListener {
     private String getUrl(int type, int pageIndex) {
         StringBuffer sb = new StringBuffer();
         switch (type) {
-            case NewsFragment.NEWS_TYPE_HOT:
+            case NewsViewPagerFragment.NEWS_TYPE_HOT:
                 sb.append(Urls.NEWS_HOT_URL);
                 break;
-            case NewsFragment.NEWS_TYPE_PRODUCT:
+            case NewsViewPagerFragment.NEWS_TYPE_PRODUCT:
                 sb.append(Urls.NEWS_PRODUCT_URL);
                 break;
-            case NewsFragment.NEWS_TYPE_AT:
+            case NewsViewPagerFragment.NEWS_TYPE_AT:
                 sb.append(Urls.NEWS_AT_URL);
                 break;
-            case NewsFragment.NEWS_TYPE_VIDEO:
+            case NewsViewPagerFragment.NEWS_TYPE_VIDEO:
                 sb.append(Urls.NEWS_VIDEO_URL);
                 break;
             default:

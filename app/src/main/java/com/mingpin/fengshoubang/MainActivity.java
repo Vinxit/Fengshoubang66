@@ -12,7 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.mingpin.fengshoubang.base.activities.BaseActivity;
 import com.mingpin.fengshoubang.box.BoxFragment;
 import com.mingpin.fengshoubang.community.CommunityFragment;
-import com.mingpin.fengshoubang.news.widget.NewsFragment;
+import com.mingpin.fengshoubang.news.fragments.NewsViewPagerFragment;
 import com.mingpin.fengshoubang.product.ProductFragment;
 import com.mingpin.fengshoubang.user.UserFragment;
 
@@ -90,14 +90,14 @@ public class MainActivity extends BaseActivity{
         super.initWidget();
         fragments = getFragments();
         //设置默认的Fargment
-        getSupportFragmentManager().beginTransaction().replace(R.id.layFrame,NewsFragment.newInstance("资讯")).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layFrame, NewsViewPagerFragment.newInstance("资讯")).commit();
     }
 
 
     private ArrayList<Fragment> getFragments(){
         ArrayList fragments = new ArrayList<>();
         fragments.add(ProductFragment.newInstance("产品汇"));
-        fragments.add(NewsFragment.newInstance("资讯"));
+        fragments.add(NewsViewPagerFragment.newInstance("资讯"));
         fragments.add(CommunityFragment.newInstance("社区"));
         fragments.add(BoxFragment.newInstance("发现"));
         fragments.add(UserFragment.newInstance("个人中心"));

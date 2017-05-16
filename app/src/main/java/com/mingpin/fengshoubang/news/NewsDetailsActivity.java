@@ -1,8 +1,7 @@
-package com.mingpin.fengshoubang.news.widget;
+package com.mingpin.fengshoubang.news;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.mingpin.fengshoubang.R;
@@ -79,7 +78,6 @@ public class NewsDetailsActivity extends BaseBackActivity implements NewsDetailV
             content = newscontent;
         }*/
         String html = html_head + newscontent;
-        Log.i(TAG,"content"+html);
         myWebView.loadDetailDataAsync(html, new Runnable() {
             @Override
             public void run() {
