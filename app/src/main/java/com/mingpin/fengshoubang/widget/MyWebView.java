@@ -8,7 +8,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
@@ -123,8 +122,6 @@ public class MyWebView extends WebView {
     private static String setupWebContent(String content, boolean isShowImagePreview) {
         if (TextUtils.isEmpty(content) || TextUtils.isEmpty(content.trim()))
             return "";
-
-        Log.i(TAG, "setupWebContent: "+content);
         return String.format(
                 "<!DOCTYPE html>"
                         + "<html>"

@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang;
+package com.mingpin.fengshoubang.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.Gravity;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.mingpin.fengshoubang.R;
 import com.mingpin.fengshoubang.base.activities.BaseActivity;
 import com.mingpin.fengshoubang.box.BoxFragment;
 import com.mingpin.fengshoubang.community.CommunityFragment;

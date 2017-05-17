@@ -2,17 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppMainTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- 标题栏底色-->
         <item name="colorPrimary">@color/main_green</item>
+        <!-- 状态栏底色-->
         <item name="colorPrimaryDark">@color/main_green</item>
     </style>
 
     <style name="AppDetailTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/green</item>
-        <item name="colorAccent">@color/green</item>
+        <item name="colorPrimary">@color/main_green</item>
+        <item name="colorPrimaryDark">@color/main_green</item>
+        <item name="colorAccent">@color/main_green</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

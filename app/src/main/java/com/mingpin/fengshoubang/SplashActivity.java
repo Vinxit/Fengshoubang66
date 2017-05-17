@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.mingpin.fengshoubang.base.activities.BaseActivity;
+import com.mingpin.fengshoubang.main.MainActivity;
 
 public class SplashActivity extends BaseActivity {
     private final int SPLASH_DISPLAY_LENGHT = 2000; // 延迟2秒
