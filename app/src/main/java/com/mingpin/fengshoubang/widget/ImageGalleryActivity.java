@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.mingpin.fengshoubang.common.utils.ImageLoaderUtils;
 
 
 public class ImageGalleryActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+    public static final String TAG = "ImageGalleryActivity";
     public static final String KEY_IMAGE = "images";
     public static final String KEY_COOKIE = "cookie_need";
     public static final String KEY_POSITION = "position";
@@ -34,15 +36,21 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_gallery);
         imagePath = getIntent().getStringExtra("image");
+        mImageSources = getIntent().getStringArrayExtra("images");
 
+        for (int i=0;i<mImageSources.length;i++){
+            if(imagePath.equals(mImageSources[i])){
+                mCurPosition=i;
+            }
+        }
         mImagePager = (PreviewerViewPager) findViewById(R.id.vp_image);
         tv_index = (TextView) findViewById(R.id.tv_index);
-        tv_index.setText("haha");
         mImagePager.addOnPageChangeListener(this);
-        mImagePager.setAdapter(new ViewPagerAdapter());
-/*        mImagePager.setCurrentItem(mCurPosition);*/
+        mImagePager.setAdapter(new ViewPagerAdapter(mImageSources));
+        mImagePager.setCurrentItem(mCurPosition);
         onPageSelected(mCurPosition);
     }
+
 
 /*
     @Override
@@ -74,8 +82,7 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
 
     @Override
     public void onPageSelected(int position) {
-        mCurPosition = position;
-        tv_index.setText(String.format("%s/%s",(position+1),1));
+        tv_index.setText(String.format("%s/%s",(position+1),mImageSources.length));
     }
 
     @Override
@@ -85,30 +92,49 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
 
     private class ViewPagerAdapter extends PagerAdapter implements ImagePreviewView.OnReachBorderListener{
         private View.OnClickListener mFinishClickListener;
+        private String[] imgs;
+
+        public ViewPagerAdapter(String[] images) {
+            super();
+            this.imgs = images;
+        }
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
+        //来判断显示的是否是同一张图片
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return true;
+            Log.i(TAG, "isViewFromObject: "+view+"---"+object);
+            return view == object;
         }
 
         @Override
-        public void onReachBorder(boolean isReached) {
-
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            View view = (View)object;
+            container.removeView(view);
         }
 
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+        }
+
+        //通过调用一次或多次，来构造页面视图
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = LayoutInflater.from(container.getContext()).inflate(R.layout.lay_gallery_page_item,container,false);
             ImagePreviewView previewView = (ImagePreviewView) view.findViewById(R.id.iv_preview);
-            ImageLoaderUtils.display(container.getContext(),previewView,imagePath);
+            ImageLoaderUtils.display(container.getContext(),previewView,imgs[position]);
             previewView.setOnReachBorderListener(this);
             previewView.setOnClickListener(getListener());
             container.addView(view);
             return view;
+        }
+        @Override
+        public void onReachBorder(boolean isReached) {
+
         }
         private View.OnClickListener getListener(){
             if(mFinishClickListener == null){

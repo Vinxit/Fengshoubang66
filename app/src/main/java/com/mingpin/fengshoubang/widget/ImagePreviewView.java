@@ -4,6 +4,8 @@ import android.animation.FloatEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -14,9 +16,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 /**
- * 支持图片预览, 放大,缩小,位置自适应,双击放大缩小
- */
-public class ImagePreviewView extends ImageView {
+ * 支持图片预览, 放大,缩小,位置自适应,双击放大缩小，ViewPager滑动
+    */
+    public class ImagePreviewView extends ImageView {
 
     private ScaleGestureDetector mScaleDetector;
     private GestureDetector mFlatDetector;
@@ -42,7 +44,7 @@ public class ImagePreviewView extends ImageView {
     private DecelerateInterpolator mDecInterpolator = new DecelerateInterpolator();
 
     private OnReachBorderListener onReachBorderListener;
-
+    private final Matrix mScaleMatrix = new Matrix();
     public interface OnReachBorderListener {
         void onReachBorder(boolean isReached);
     }
@@ -203,11 +205,10 @@ public class ImagePreviewView extends ImageView {
                 : 0;
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final int action = event.getAction();
-
+        RectF rectF = getMatrixRectF();
         // 清理动画
         if (action == MotionEvent.ACTION_DOWN) {
             cancelAnimation();
@@ -215,64 +216,93 @@ public class ImagePreviewView extends ImageView {
 
         mFlatDetector.onTouchEvent(event);
         mScaleDetector.onTouchEvent(event);
+        switch (action){
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (isAutoScale) {
+                    isAutoScale = false;
+                } else {
+                    if (scale < 1) {
+                        ValueAnimator animator = getResetScaleAnimator();
+                        animator.setFloatValues(scale, 1.f);
+                        animator.addUpdateListener(getOnScaleAnimationUpdate());
+                        animator.start();
+                    }
+                    final float mScaledWidth = mBoundWidth * scale;
+                    final float mScaledHeight = mBoundHeight * scale;
 
-        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            if (isAutoScale) {
-                isAutoScale = false;
-            } else {
-                if (scale < 1) {
-                    ValueAnimator animator = getResetScaleAnimator();
-                    animator.setFloatValues(scale, 1.f);
-                    animator.addUpdateListener(getOnScaleAnimationUpdate());
-                    animator.start();
+                    final float mDiffX = getDiffX();
+                    final float mDiffY = getDiffY();
+
+                    // 左右边界重置
+                    if (mScaledWidth >= getWidth() && mDiffX != 0) {
+                        ValueAnimator animator = getResetXAnimator();
+                        animator.setFloatValues(translateLeft, translateLeft - mDiffX);
+                        animator.addUpdateListener(getOnTranslateXAnimationUpdate());
+                        animator.start();
+                    }
+
+                    // 上下边界重置
+                    if (mScaledHeight >= getHeight() && mDiffY != 0) {
+                        ValueAnimator animator = getResetYAnimator();
+                        animator.setFloatValues(translateTop, translateTop - mDiffY);
+                        animator.addUpdateListener(getOnTranslateYAnimationUpdate());
+                        animator.start();
+                    }
+
+                    // width重置到中间位置
+                    if (mScaledWidth < getWidth() && mScaledHeight >= getHeight() && mDiffX != 0) {
+                        ValueAnimator animator = getResetXAnimator();
+                        animator.setFloatValues(translateLeft, 0);   // 宽度总是填充的
+                        animator.addUpdateListener(getOnTranslateXAnimationUpdate());
+                        animator.start();
+                    }
+
+                    // height重置到中间位置
+                    if (mScaledHeight < getHeight() && mScaledWidth >= getWidth() && mDiffY != 0) {
+                        ValueAnimator animator = getResetYAnimator();
+                        animator.setFloatValues(translateTop, (getHeight() - mScaledHeight) / 2.f);
+                        animator.addUpdateListener(getOnTranslateYAnimationUpdate());
+                        animator.start();
+                    }
+
+                    if (mScaledWidth < getWidth() && mScaledHeight < getHeight()) {
+                        resetDefaultState();
+                    }
                 }
-                final float mScaledWidth = mBoundWidth * scale;
-                final float mScaledHeight = mBoundHeight * scale;
-
-                final float mDiffX = getDiffX();
-                final float mDiffY = getDiffY();
-
-                // 左右边界重置
-                if (mScaledWidth >= getWidth() && mDiffX != 0) {
-                    ValueAnimator animator = getResetXAnimator();
-                    animator.setFloatValues(translateLeft, translateLeft - mDiffX);
-                    animator.addUpdateListener(getOnTranslateXAnimationUpdate());
-                    animator.start();
+                break;
+            case MotionEvent.ACTION_DOWN:
+                if (rectF.width() > getWidth() || rectF.height() > getHeight())
+                {
+                    getParent().requestDisallowInterceptTouchEvent(true);
                 }
-
-                // 上下边界重置
-                if (mScaledHeight >= getHeight() && mDiffY != 0) {
-                    ValueAnimator animator = getResetYAnimator();
-                    animator.setFloatValues(translateTop, translateTop - mDiffY);
-                    animator.addUpdateListener(getOnTranslateYAnimationUpdate());
-                    animator.start();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (rectF.width() > getWidth() || rectF.height() > getHeight())
+                {
+                    getParent().requestDisallowInterceptTouchEvent(false);
                 }
-
-                // width重置到中间位置
-                if (mScaledWidth < getWidth() && mScaledHeight >= getHeight() && mDiffX != 0) {
-                    ValueAnimator animator = getResetXAnimator();
-                    animator.setFloatValues(translateLeft, 0);   // 宽度总是填充的
-                    animator.addUpdateListener(getOnTranslateXAnimationUpdate());
-                    animator.start();
-                }
-
-                // height重置到中间位置
-                if (mScaledHeight < getHeight() && mScaledWidth >= getWidth() && mDiffY != 0) {
-                    ValueAnimator animator = getResetYAnimator();
-                    animator.setFloatValues(translateTop, (getHeight() - mScaledHeight) / 2.f);
-                    animator.addUpdateListener(getOnTranslateYAnimationUpdate());
-                    animator.start();
-                }
-
-                if (mScaledWidth < getWidth() && mScaledHeight < getHeight()) {
-                    resetDefaultState();
-                }
-            }
+                break;
         }
-
         return true;
     }
-
+    /**+++
+     * 根据当前图片的Matrix获得图片的范围
+     *
+     * @return
+     */
+    private RectF getMatrixRectF()
+    {
+        Matrix matrix = mScaleMatrix;
+        RectF rect = new RectF();
+        Drawable d = getDrawable();
+        if (null != d)
+        {
+            rect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            matrix.mapRect(rect);
+        }
+        return rect;
+    }
     private void resetDefaultState() {
         if (translateLeft != 0) {
             ValueAnimator mTranslateXAnimator = getResetXAnimator();
@@ -431,6 +461,9 @@ public class ImagePreviewView extends ImageView {
         return t;
     }
 
+    /**
+     * 双击放大缩小
+     */
     private class FlatGestureListener extends GestureDetector.SimpleOnGestureListener {
         /**
          * @param e1        horizontal event

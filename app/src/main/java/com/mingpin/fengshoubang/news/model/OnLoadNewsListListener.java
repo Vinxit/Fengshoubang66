@@ -1,6 +1,6 @@
 package com.mingpin.fengshoubang.news.model;
 
-import com.mingpin.fengshoubang.news.bean.NewsListItem;
+import com.mingpin.fengshoubang.bean.NewsListItem;
 
 import java.util.List;
 

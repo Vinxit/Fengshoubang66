@@ -17,8 +17,6 @@ public abstract class BaseBackActivity extends BaseActivity {
             actionBar.setHomeButtonEnabled(false);
         }
     }
-
-
     /**
      *fragment
      */

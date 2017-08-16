@@ -3,17 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/lay_nsv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        <!--ScrollView 只能包裹一个view-->
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/lay_nsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
         <com.mingpin.fengshoubang.widget.MyWebView
             android:id="@+id/wv_News"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </com.mingpin.fengshoubang.widget.MyWebView>
-
+        </android.support.v4.widget.NestedScrollView>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -23,5 +24,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </com.mingpin.fengshoubang.common.comment.CommentView>
-    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

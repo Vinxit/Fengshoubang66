@@ -6,14 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingpin.fengshoubang.R;
+import com.mingpin.fengshoubang.bean.NewsListItem;
+import com.mingpin.fengshoubang.common.config.FsbApi;
 import com.mingpin.fengshoubang.common.utils.ImageLoaderUtils;
-import com.mingpin.fengshoubang.config.Urls;
-import com.mingpin.fengshoubang.news.bean.NewsListItem;
 
 import java.util.List;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by Administrator on 2017/3/20.
@@ -22,8 +25,12 @@ import java.util.List;
 public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "NewslistAdapter";
 
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_FOOTER = 1;
+    public static final String NEWS_VIDEO_CLASSID = "5"; //视屏 的classid
+
+    private static final int TYPE_ITEM = 0; //资讯
+    private static final int TYPE_FOOTER = 1; //加载更多
+    private static final int TYPE_VIDEO= 2; //视屏
+    private static final int TYPE_ADVERT= 3; //广告
     private boolean mShowFooter = true;
     private Context mContext;
     private List<NewsListItem> mData;
@@ -44,30 +51,44 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if(!mShowFooter) {
+
+ /*       if(!mShowFooter){
+            mData.get(position).getClassid();
             return TYPE_ITEM;
-        }
+        }*/
+
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
         } else {
-            return TYPE_ITEM;
+            String typeView = mData.get(position).getClassid();
+            if(typeView.equals("5")){
+                return TYPE_VIDEO;
+            }else{
+                return TYPE_ITEM;
+            }
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_news,parent,false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
+        View view;
+        if (viewType == TYPE_FOOTER) {
+            view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.footer, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             return new FooterViewHolder(view);
+        } else if (viewType == TYPE_VIDEO) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
+            ItemVedioViewHolder vedioViewHolder = new ItemVedioViewHolder(view);
+            return vedioViewHolder;
+        } else{
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_news, parent, false);
+            ItemViewHolder vh = new ItemViewHolder(view);
+            return vh;
         }
+
     }
 
     @Override
@@ -80,7 +101,14 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ItemViewHolder) holder).mTitle.setText(news.getNewstitle());
             ((ItemViewHolder) holder).mHits.setText(news.getHits());
             ((ItemViewHolder) holder).mC_num.setText(news.getC_num()+"");
-            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, Urls.IMG_URL+news.getImg());
+            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, FsbApi.IMG_URL+news.getImg());
+        }else if (holder instanceof ItemVedioViewHolder){
+            NewsListItem news = mData.get(position);
+            if(news == null) {
+                return;
+            }
+            ((ItemVedioViewHolder) holder).mKeywords.setText(news.getNewstitle());
+            ((ItemVedioViewHolder) holder).videoPlayer.setUp(news.getNewstitle(),JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,news.getNewstitle());
         }
     }
 
@@ -106,6 +134,10 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
+
+    /**
+     * 脚布局  加载更多
+     */
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public FooterViewHolder(View view) {
@@ -113,7 +145,9 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     }
-
+    /**
+     *  资讯
+     */
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTitle;
@@ -128,6 +162,33 @@ public class NewslistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mC_num = (TextView) v.findViewById(R.id.tvC_num);
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(view,this.getPosition());
+            }
+        }
+    }
+    /**
+     *  视屏
+     */
+    public class ItemVedioViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public LinearLayout mVideo;
+        public JCVideoPlayerStandard videoPlayer;
+        public TextView mKeywords;
+
+/*        public TextView mC_num;
+        public ImageView mNewsImg;*/
+
+        public ItemVedioViewHolder(View v) {
+            super(v);
+            mVideo = (LinearLayout) v.findViewById(R.id.ll_video);
+            videoPlayer = (JCVideoPlayerStandard) v.findViewById(R.id.videoView);
+            mKeywords = (TextView) v.findViewById(R.id.tv_videoKeywords);
+
+            mVideo.setOnClickListener(this);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.mingpin.fengshoubang.news.fragments;
+package com.mingpin.fengshoubang.news.view.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -7,36 +7,36 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mingpin.fengshoubang.R;
-import com.mingpin.fengshoubang.config.Urls;
-import com.mingpin.fengshoubang.news.NewsDetailsActivity;
+import com.mingpin.fengshoubang.bean.NewsListItem;
+import com.mingpin.fengshoubang.common.config.FsbApi;
+import com.mingpin.fengshoubang.news.NewsContract;
 import com.mingpin.fengshoubang.news.adapter.NewslistAdapter;
-import com.mingpin.fengshoubang.news.bean.NewsListItem;
 import com.mingpin.fengshoubang.news.presenter.NewsPresenter;
-import com.mingpin.fengshoubang.news.presenter.NewsPresenterImpl;
-import com.mingpin.fengshoubang.news.view.NewsView;
+import com.mingpin.fengshoubang.news.view.NewsDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener ,NewsView{
+public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener ,NewsContract.View{
 
     private static final String TAG = "NewsListFragment";
     private static final String TYPE = "type";
-    private int mType = NewsViewPagerFragment.NEWS_TYPE_HOT;
+    private int mType = FsbApi.NEWS_TYPE_HOT;
 
     private SwipeRefreshLayout mSwipeRefreshWidget;
     private RecyclerView mRecyclerView;
     private NewslistAdapter mAdapter;
     private List<NewsListItem> mData;
     private LinearLayoutManager mLayoutManager;
-    private NewsPresenter mNewsPresenter;
-    private int pageIndex = 0;
+    private NewsContract.Persenter mNewsPresenter;
+    private int pageIndex = 1;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsPresenter = new NewsPresenterImpl(this);
+        mNewsPresenter = new NewsPresenter(this);
         mType = getArguments().getInt(TYPE);
     }
 
@@ -82,7 +82,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
         onRefresh();
         return view;
     }
-    /*下拉加载监听*/
+    /*上拉加载监听*/
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
         private int lastVisibleItem;
@@ -91,20 +91,26 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+            Log.i(TAG,"lastVisibleItem-------"+lastVisibleItem);
         }
-
+        /**
+         *
+         * @param recyclerView
+         * @param newState 目前的状态
+         */
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == mAdapter.getItemCount()
-                    && mAdapter.isShowFooter()) {
+                    && lastVisibleItem + 1 == mAdapter.getItemCount()) {
                 //加载更多
-                mNewsPresenter.loadNews(mType, pageIndex + Urls.PAGE_SIZE);
+                Log.i(TAG, "lastVisibleItem: "+lastVisibleItem+"--getItemCount"+mAdapter.getItemCount());
+                Log.i(TAG, "加载: "+pageIndex);
+                mNewsPresenter.loadNews(mType, pageIndex);
             }
         }
     };
-     /*条目点击*/
+     /*条目点击监听*/
     private NewslistAdapter.OnItemClickListener mOnItemClickListener = new NewslistAdapter.OnItemClickListener(){
         @Override
         public void onItemClick(View view, int position) {
@@ -121,13 +127,17 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
     @Override
+    public void setPresenter(NewsContract.Persenter presenter) {
+
+    }
+    @Override
     public void addNews(List<NewsListItem> newsList) {
         mAdapter.isShowFooter(true);
         if(mData == null) {
             mData = new ArrayList<NewsListItem>();
         }
         mData.addAll(newsList);
-        if(pageIndex == 0) {
+        if(pageIndex == 1) {
             mAdapter.setmDate(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
@@ -136,7 +146,7 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
             mAdapter.notifyDataSetChanged();
         }
-        pageIndex += Urls.PAGE_SIZE;
+        pageIndex++;
     }
 
     @Override
@@ -156,10 +166,11 @@ public class NewsListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        pageIndex = 0;
+        pageIndex = 1;
         if(mData != null) {
             mData.clear();
         }
+        Log.i(TAG, "刷新: "+pageIndex);
         mNewsPresenter.loadNews(mType, pageIndex);
     }
 

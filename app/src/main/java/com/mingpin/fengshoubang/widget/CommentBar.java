@@ -50,7 +50,7 @@ public class CommentBar {
         mCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            /*  mDelegation.show(mCommentText.getHint().toString());*/
+              mDelegation.show(mCommentText.getHint().toString());
             }
         });
     }

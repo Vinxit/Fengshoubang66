@@ -60,14 +60,20 @@ public class MyWebView extends WebView {
             addJavascriptInterface(new OnWebViewImageListener() {
                 @Override
                 @JavascriptInterface
-                public void showImagePreview(String bigImageUrl) {
+                public void showImagePreview(String bigImageUrl,String[] imgs) {
                     if (bigImageUrl != null){
                         /*ImageGalleryActivity.show(getContext(),bigImageUrl);*/
                         Intent intent = new Intent(getContext(), ImageGalleryActivity.class);
                         intent.putExtra("image",bigImageUrl);
+                        intent.putExtra("images",imgs);
                         getContext().startActivity(intent);
                     }
                     Toast.makeText(getContext(),"haha",Toast.LENGTH_LONG);
+                }
+                @Override
+                @JavascriptInterface
+                public void showToast() {
+
                 }
             },"mWebViewImageListener");
         }
@@ -75,16 +81,7 @@ public class MyWebView extends WebView {
     // 注入js函数监听
     private void addImageClickListner() {
         // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
-         loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName(\"img\"); " +
-                "for(var i=0;i<objs.length;i++)  " +
-                "{"
-                + "    objs[i].onclick=function()  " +
-                "    {  "
-                + "        window.mWebViewImageListener.showImagePreview(this.src);  " +
-                "    }  " +
-                "}" +
-                "})()");
+         loadUrl("javascript:(function(){var objs = document.getElementsByTagName(\"img\");var imgObjs = [];for(var i=0;i<objs.length;i++){imgObjs.push(objs[i].src);objs[i].onclick = function(){window.mWebViewImageListener.showImagePreview(this.src,imgObjs);}}})()");
     }
     @Override
     public void destroy() {
@@ -99,6 +96,12 @@ public class MyWebView extends WebView {
         removeAllViews();
         super.destroy();
     }
+
+    @Override
+    public void loadUrl(String url) {
+        super.loadUrl(url);
+    }
+
     public void loadDetailDataAsync(final String content, Runnable finishCallback) {
         this.setWebViewClient(new OWebClient(finishCallback));
         Context context = getContext();
@@ -125,6 +128,8 @@ public class MyWebView extends WebView {
         return String.format(
                 "<!DOCTYPE html>"
                         + "<html>"
+                        + "<head>"
+                        + "</head>"
                         + "<body>"
                         + "%s"
                         + "</body>"

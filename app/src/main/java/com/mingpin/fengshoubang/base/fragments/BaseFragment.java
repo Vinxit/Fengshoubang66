@@ -40,15 +40,14 @@ public abstract class BaseFragment extends Fragment{
         bundle = getArguments();
         initBundle(bundle);
     }
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         if (mRoot != null) {
             ViewGroup parent = (ViewGroup) mRoot.getParent();
             if (parent != null)
                 parent.removeView(mRoot);
         } else {
-            mRoot = inflater.inflate(getLayoutId(), container, false);
+            mRoot = inflater.inflate(getLayoutId(),container,false);
             layoutInflater = inflater;
             // Do something
             onBindViewBefore(mRoot);

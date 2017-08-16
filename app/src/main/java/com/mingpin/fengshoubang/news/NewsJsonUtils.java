@@ -6,10 +6,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mingpin.fengshoubang.bean.NewsDetail;
+import com.mingpin.fengshoubang.bean.NewsListItem;
+import com.mingpin.fengshoubang.common.config.FsbApi;
 import com.mingpin.fengshoubang.common.utils.JsonUtils;
-import com.mingpin.fengshoubang.config.Urls;
-import com.mingpin.fengshoubang.news.bean.NewsDetail;
-import com.mingpin.fengshoubang.news.bean.NewsListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class NewsJsonUtils {
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
-            JsonElement jsonElement = jsonObj.get(Urls.RESULT);
+            JsonElement jsonElement = jsonObj.get(FsbApi.RESULT);
             if(jsonElement == null) {
                 return null;
             }
@@ -64,7 +64,7 @@ public class NewsJsonUtils {
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
-            JsonElement jsonElement = jsonObj.get(Urls.RESULT);
+            JsonElement jsonElement = jsonObj.get(FsbApi.RESULT);
             JsonArray jsonArray = jsonElement.getAsJsonArray();
             JsonObject jo = jsonArray.get(0).getAsJsonObject();
             if(jsonElement == null) {

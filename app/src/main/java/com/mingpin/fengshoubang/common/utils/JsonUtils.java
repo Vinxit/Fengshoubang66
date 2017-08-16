@@ -16,6 +16,7 @@ public class JsonUtils {
      * 将json字符串转换为对象
      */
     public static <T>T deserialize(String json, Class<T> clz)throws JsonSyntaxException{
+
         return mGson.fromJson(json,clz);
     }
 

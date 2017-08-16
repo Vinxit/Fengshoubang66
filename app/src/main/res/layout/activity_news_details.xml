@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.mingpin.fengshoubang.news.NewsDetailsActivity">
-    <com.mingpin.fengshoubang.widget.MyWebView
-        android:id="@+id/wv_News"
+    android:background="@color/white"
+    tools:context="com.mingpin.fengshoubang.news.view.NewsDetailsActivity">
+    <FrameLayout
+        android:id="@+id/lay_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.mingpin.fengshoubang.widget.MyWebView>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:layout_above="@+id/ll_comment" />
     <LinearLayout
         android:id="@+id/ll_comment"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

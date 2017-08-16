@@ -1,6 +1,7 @@
-package com.mingpin.fengshoubang.news.bean;
+package com.mingpin.fengshoubang.bean;
 
 /**
+ * 新闻详情实体类
  * Created by Administrator on 2017/3/20.
  */
 

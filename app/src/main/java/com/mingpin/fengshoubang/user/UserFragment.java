@@ -1,6 +1,7 @@
 package com.mingpin.fengshoubang.user;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,9 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(),"iconfont.ttf");
         TextView tv = (TextView) getActivity().findViewById(R.id.tv_user);
-        tv.setText(getArguments().getString("ARGS"));
+        tv.setTypeface(typeface);
+ /*       tv.setText(getArguments().getString("ARGS"));*/
     }
 }

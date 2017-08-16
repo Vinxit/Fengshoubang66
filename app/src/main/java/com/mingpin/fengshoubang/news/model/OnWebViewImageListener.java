@@ -8,5 +8,7 @@ package com.mingpin.fengshoubang.news.model;
 
 public interface OnWebViewImageListener {
 
-    void showImagePreview(String bigImageUrl);
+    void showImagePreview(String bigImageUrl,String[] imgs);
+
+    void showToast();
 }

@@ -1,8 +1,9 @@
-package com.mingpin.fengshoubang.news.bean;
+package com.mingpin.fengshoubang.bean;
 
 import java.io.Serializable;
 
 /**
+ * 新闻列表实体类
  * Created by huangkun on 2017/3/20.
  */
 

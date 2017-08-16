@@ -5,6 +5,7 @@ package com.mingpin.fengshoubang.news.model;
  */
 
 public interface NewsModel {
-    void loadNews(String url, OnLoadNewsListListener listener);
+    void loadNews(int type,int pageIndex,OnLoadNewsListListener listener);
     void loadNewsDetail(String id,OnloadNewsDetailListener  listener);
+    void addComment(String newsid, String username, String content, String gpsx, String gpsy,OnaddCommentListener listener);
 }

@@ -14,6 +14,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -44,23 +45,20 @@ public class OkHttpUtils {
         deliveryResult(callback, request);
     }
 
-/*    private void postRequest(String url, final ResultCallback callback, List<Param> params) {
-        Request request = buildPostRequest(url, params);
+    private void postRequest(String url,RequestBody requestBody, final ResultCallback callback) {
+        Request request = new Request.Builder().url(url).post(requestBody).build();
         deliveryResult(callback, request);
-    }*/
-
+    }
     /**
      * 异步请求
      * @param callback
      * @param request
      */
     private void deliveryResult(final ResultCallback callback, Request request) {
-
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
@@ -106,15 +104,6 @@ public class OkHttpUtils {
         });
     }
 
-/*    private Request buildPostRequest(String url, List<Param> params) {
-        FormBody
-        FormEncodingBuilder builder = new FormEncodingBuilder();
-        for (Param param : params) {
-            builder.add(param.key, param.value);
-        }
-        RequestBody requestBody = builder.build();
-        return new Request.Builder().url(url).post(requestBody).build();
-    }*/
     /*********************对外接口*****************、
     /**
      * get请求
@@ -123,6 +112,16 @@ public class OkHttpUtils {
      */
     public static void get(String url, ResultCallback callback){
         getmInstance().getRequest(url,callback);
+    }
+
+    /**
+     * post 请求
+     * @param url
+     * @param requestBody
+     * @param callback
+     */
+    public static void post(String url,RequestBody requestBody,ResultCallback callback){
+        getmInstance().postRequest(url,requestBody,callback);
     }
 
     /**
